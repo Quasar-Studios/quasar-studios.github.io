@@ -1,73 +1,1354 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Coming Soon</title>
-  <meta name="description" content="Placeholder GitHub Pages site" />
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #0f0f0f;
-      color: #e5e5e5;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quasar Studios | Home</title>
+    <meta name="description" content="Quasar Studios - Crafting exceptional web experiences, games, and digital solutions.">
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Font: Exo 2 -->
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ============================================
+           CSS Custom Properties (Theme)
+        ============================================ */
+        :root {
+            --color-cream: #FCF9F9;
+            --color-cyan: #59BBD7;
+            --color-blue-primary: #1D5B94;
+            --color-blue-secondary: #2888C2;
+            --color-navy: #171B33;
+            
+            --font-display: 'Syne', sans-serif;
+            --font-body: 'Source Sans 3', sans-serif;
+            
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --spacing-lg: 4rem;
+            --spacing-xl: 8rem;
+            
+            --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
 
-    .container {
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
+        /* ============================================
+           Reset & Base
+        ============================================ */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    .card {
-      padding: 3rem;
-      border-radius: 12px;
-      background: #161616;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-      max-width: 480px;
-      width: 100%;
-    }
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+            overflow-x: hidden;
+        }
 
-    h1 {
-      margin: 0 0 1rem;
-      font-size: 2rem;
-      font-weight: 600;
-    }
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-navy);
+            color: var(--color-cream);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            min-width: 320px;
+        }
 
-    p {
-      margin: 0;
-      font-size: 1rem;
-      color: #a1a1a1;
-    }
+        /* ============================================
+           Utility Classes
+        ============================================ */
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+            box-sizing: border-box;
+        }
 
-    footer {
-      position: fixed;
-      bottom: 1rem;
-      width: 100%;
-      text-align: center;
-      font-size: 0.8rem;
-      color: #666;
-    }
-  </style>
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+        }
+
+        /* ============================================
+           Background Effects
+        ============================================ */
+        .bg-gradient-mesh {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            background: 
+                radial-gradient(ellipse 80% 50% at 20% 40%, rgba(29, 91, 148, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse 60% 40% at 80% 20%, rgba(89, 187, 215, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse 50% 60% at 60% 80%, rgba(40, 136, 194, 0.12) 0%, transparent 50%);
+        }
+
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+
+        /* ============================================
+           Header & Navigation
+        ============================================ */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            padding: var(--spacing-sm) 0;
+            transition: background-color 0.4s var(--transition-smooth), 
+                        backdrop-filter 0.4s var(--transition-smooth);
+        }
+
+        .header.scrolled {
+            background-color: rgba(23, 27, 51, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            text-decoration: none;
+            color: var(--color-cream);
+        }
+
+        .logo-mark {
+            width: 48px;
+            height: 48px;
+            transition: transform 0.5s var(--transition-bounce);
+        }
+
+        .logo-link:hover .logo-mark {
+            transform: rotate(15deg) scale(1.05);
+        }
+
+        .logo-text {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--spacing-md);
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--color-cream);
+            text-decoration: none;
+            position: relative;
+            padding: var(--spacing-xs) 0;
+            transition: color 0.3s var(--transition-smooth);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--color-cyan), var(--color-blue-secondary));
+            transition: width 0.3s var(--transition-smooth);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a:focus::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-cyan);
+        }
+
+        /* Mobile menu button */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: var(--spacing-xs);
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--color-cream);
+            margin: 5px 0;
+            transition: all 0.3s var(--transition-smooth);
+        }
+
+        /* ============================================
+           Hero Section
+        ============================================ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: var(--spacing-xl) 0;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
+        }
+
+        .hero-logo {
+            width: 160px;
+            height: 160px;
+            margin: 0 auto var(--spacing-lg);
+            opacity: 0;
+            animation: fadeInUp 0.8s var(--transition-smooth) 0.2s forwards;
+        }
+
+        .hero-logo img {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 30px rgba(89, 187, 215, 0.3));
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+            margin-bottom: var(--spacing-md);
+            opacity: 0;
+            animation: fadeInUp 0.8s var(--transition-smooth) 0.4s forwards;
+            max-width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .desktop-break {
+            display: inline;
+        }
+
+        @media (max-width: 768px) {
+            .desktop-break {
+                display: none;
+            }
+        }
+
+        .hero-title .highlight {
+            background: linear-gradient(135deg, var(--color-cyan) 0%, var(--color-blue-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            font-weight: 300;
+            color: rgba(252, 249, 249, 0.7);
+            max-width: 600px;
+            margin: 0 auto var(--spacing-lg);
+            opacity: 0;
+            animation: fadeInUp 0.8s var(--transition-smooth) 0.6s forwards;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: var(--spacing-sm);
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeInUp 0.8s var(--transition-smooth) 0.8s forwards;
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: var(--spacing-lg);
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: fadeIn 1s var(--transition-smooth) 1.2s forwards;
+        }
+
+        .scroll-indicator::before {
+            content: '';
+            display: block;
+            width: 24px;
+            height: 40px;
+            border: 2px solid rgba(252, 249, 249, 0.3);
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .scroll-indicator::after {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 8px;
+            background: var(--color-cyan);
+            border-radius: 2px;
+            animation: scrollPulse 2s infinite;
+        }
+
+        /* ============================================
+           Buttons
+        ============================================ */
+        .btn {
+            font-family: var(--font-display);
+            font-size: 0.95rem;
+            font-weight: 600;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s var(--transition-smooth);
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--color-blue-primary) 0%, var(--color-blue-secondary) 100%);
+            color: var(--color-cream);
+            box-shadow: 0 4px 20px rgba(29, 91, 148, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(29, 91, 148, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--color-cream);
+            border: 2px solid rgba(252, 249, 249, 0.3);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--color-cyan);
+            color: var(--color-cyan);
+            transform: translateY(-3px);
+        }
+
+        .btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* ============================================
+           Section: Services
+        ============================================ */
+        .section {
+            padding: var(--spacing-xl) 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .section-label {
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--color-cyan);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-md);
+            width: 100%;
+        }
+
+        .service-card {
+            background: linear-gradient(135deg, rgba(29, 91, 148, 0.1) 0%, rgba(40, 136, 194, 0.05) 100%);
+            border: 1px solid rgba(89, 187, 215, 0.15);
+            border-radius: 20px;
+            padding: var(--spacing-lg);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s var(--transition-smooth);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(89, 187, 215, 0.1) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.4s var(--transition-smooth);
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(89, 187, 215, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--color-blue-primary), var(--color-blue-secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--spacing-md);
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-icon svg {
+            width: 28px;
+            height: 28px;
+            stroke: var(--color-cream);
+        }
+
+        .service-title {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-description {
+            color: rgba(252, 249, 249, 0.7);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ============================================
+           Section: About
+        ============================================ */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xl);
+            align-items: center;
+        }
+
+        .about-visual {
+            position: relative;
+        }
+
+        .about-visual-inner {
+            position: relative;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .orbital-ring {
+            position: absolute;
+            border: 1px solid rgba(89, 187, 215, 0.2);
+            border-radius: 50%;
+            animation: orbitSpin 20s linear infinite;
+        }
+
+        .orbital-ring:nth-child(1) {
+            width: 100%;
+            height: 100%;
+        }
+
+        .orbital-ring:nth-child(2) {
+            width: 75%;
+            height: 75%;
+            animation-duration: 15s;
+            animation-direction: reverse;
+        }
+
+        .orbital-ring:nth-child(3) {
+            width: 50%;
+            height: 50%;
+            animation-duration: 10s;
+        }
+
+        .about-logo-centered {
+            width: 40%;
+            height: 40%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .about-logo-centered img {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 40px rgba(89, 187, 215, 0.4));
+        }
+
+        .about-text h3 {
+            font-family: var(--font-display);
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .about-text p {
+            color: rgba(252, 249, 249, 0.75);
+            margin-bottom: var(--spacing-sm);
+            font-size: 1.1rem;
+        }
+
+        .about-stats {
+            display: flex;
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-lg);
+        }
+
+        .stat-item {
+            text-align: left;
+        }
+
+        .stat-number {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--color-cyan);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(252, 249, 249, 0.6);
+            margin-top: 0.25rem;
+        }
+
+        /* ============================================
+           Section: Connect (CTA)
+        ============================================ */
+        .connect-section {
+            background: linear-gradient(180deg, transparent 0%, rgba(29, 91, 148, 0.1) 50%, transparent 100%);
+            position: relative;
+        }
+
+        .connect-content {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .connect-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .connect-description {
+            font-size: 1.2rem;
+            color: rgba(252, 249, 249, 0.7);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .connect-links {
+            display: flex;
+            gap: var(--spacing-md);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .connect-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1.25rem 2rem;
+            background: rgba(252, 249, 249, 0.05);
+            border: 1px solid rgba(252, 249, 249, 0.1);
+            border-radius: 16px;
+            color: var(--color-cream);
+            text-decoration: none;
+            font-family: var(--font-display);
+            font-weight: 600;
+            transition: all 0.3s var(--transition-smooth);
+        }
+
+        .connect-link:hover {
+            background: rgba(89, 187, 215, 0.15);
+            border-color: var(--color-cyan);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(89, 187, 215, 0.2);
+        }
+
+        .connect-link svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* ============================================
+           Footer
+        ============================================ */
+        .footer {
+            padding: var(--spacing-lg) 0 var(--spacing-md);
+            border-top: 1px solid rgba(252, 249, 249, 0.08);
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .footer-logo {
+            width: 32px;
+            height: 32px;
+        }
+
+        .footer-name {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .footer-copy {
+            font-size: 0.9rem;
+            color: rgba(252, 249, 249, 0.5);
+        }
+
+        /* ============================================
+           Animations
+        ============================================ */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes scrollPulse {
+            0%, 100% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+            50% {
+                opacity: 0.5;
+                transform: translateX(-50%) translateY(10px);
+            }
+        }
+
+        @keyframes orbitSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Intersection Observer animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: opacity 0.9s var(--transition-smooth), 
+                        transform 0.9s var(--transition-smooth);
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Slide in from left */
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-80px);
+            transition: opacity 0.8s var(--transition-smooth), 
+                        transform 0.8s var(--transition-smooth);
+        }
+
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Slide in from right */
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(80px);
+            transition: opacity 0.8s var(--transition-smooth), 
+                        transform 0.8s var(--transition-smooth);
+        }
+
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Scale up animation */
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.85);
+            transition: opacity 0.8s var(--transition-smooth), 
+                        transform 0.8s var(--transition-bounce);
+        }
+
+        .scale-in.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Blur in animation */
+        .blur-in {
+            opacity: 0;
+            filter: blur(10px);
+            transform: translateY(30px);
+            transition: opacity 0.8s var(--transition-smooth), 
+                        filter 0.8s var(--transition-smooth),
+                        transform 0.8s var(--transition-smooth);
+        }
+
+        .blur-in.visible {
+            opacity: 1;
+            filter: blur(0);
+            transform: translateY(0);
+        }
+
+        /* Rotate in */
+        .rotate-in {
+            opacity: 0;
+            transform: rotate(-5deg) translateY(40px);
+            transition: opacity 0.8s var(--transition-smooth), 
+                        transform 0.8s var(--transition-bounce);
+        }
+
+        .rotate-in.visible {
+            opacity: 1;
+            transform: rotate(0) translateY(0);
+        }
+
+        /* Stagger children */
+        .stagger-children > * {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .stagger-children.visible > *:nth-child(1) { transition-delay: 0.1s; }
+        .stagger-children.visible > *:nth-child(2) { transition-delay: 0.25s; }
+        .stagger-children.visible > *:nth-child(3) { transition-delay: 0.4s; }
+        .stagger-children.visible > *:nth-child(4) { transition-delay: 0.55s; }
+        .stagger-children.visible > *:nth-child(5) { transition-delay: 0.7s; }
+        .stagger-children.visible > *:nth-child(6) { transition-delay: 0.85s; }
+
+        .stagger-children.visible > * {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.7s var(--transition-smooth), 
+                        transform 0.7s var(--transition-bounce);
+        }
+
+        /* Parallax effect class */
+        .parallax-slow {
+            will-change: transform;
+        }
+
+        /* Text reveal animation */
+        .text-reveal {
+            overflow: hidden;
+        }
+
+        .text-reveal-inner {
+            display: inline-block;
+            transform: translateY(100%);
+            transition: transform 0.8s var(--transition-bounce);
+        }
+
+        .text-reveal.visible .text-reveal-inner {
+            transform: translateY(0);
+        }
+
+        /* Counter animation for stats */
+        .stat-number {
+            opacity: 0;
+            transform: scale(0.5);
+            transition: opacity 0.6s var(--transition-smooth),
+                        transform 0.6s var(--transition-bounce);
+        }
+
+        .stat-item.visible .stat-number {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Glow pulse on scroll */
+        .glow-on-scroll {
+            transition: filter 0.5s var(--transition-smooth);
+        }
+
+        .glow-on-scroll.visible {
+            filter: drop-shadow(0 0 40px rgba(89, 187, 215, 0.5));
+        }
+
+        /* ============================================
+           Responsive Design
+        ============================================ */
+        @media (max-width: 1024px) {
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-lg);
+            }
+
+            .about-visual {
+                order: -1;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --spacing-lg: 3rem;
+                --spacing-xl: 5rem;
+            }
+
+            .container {
+                padding: 0 var(--spacing-sm);
+            }
+
+            .header-inner {
+                position: relative;
+            }
+
+            .header-inner nav {
+                order: 2;
+                flex: 0;
+            }
+
+            .menu-toggle {
+                display: block;
+                order: 2;
+                flex-shrink: 0;
+            }
+
+            .logo-link {
+                order: 1;
+                flex: 1;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(23, 27, 51, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: var(--spacing-md);
+                gap: var(--spacing-xs);
+                text-align: center;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links a {
+                padding: var(--spacing-sm);
+            }
+
+            .menu-toggle.open span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .menu-toggle.open span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .menu-toggle.open span:nth-child(3) {
+                transform: rotate(-45deg) translate(5px, -5px);
+            }
+
+            .hero-content {
+                padding: 0 var(--spacing-sm);
+            }
+
+            .hero-logo {
+                width: 110px;
+                height: 110px;
+            }
+
+            .hero-title {
+                font-size: clamp(1.8rem, 7vw, 2.5rem);
+                padding: 0 var(--spacing-xs);
+            }
+
+            .hero-subtitle {
+                padding: 0 var(--spacing-xs);
+                font-size: 1rem;
+            }
+
+            .section-header {
+                padding: 0 var(--spacing-sm);
+            }
+
+            .services-grid {
+                padding: 0 var(--spacing-xs);
+            }
+
+            .service-card {
+                padding: var(--spacing-md);
+            }
+
+            .about-text {
+                text-align: center;
+                padding: 0 var(--spacing-sm);
+            }
+
+            .about-text h3 {
+                text-align: center;
+            }
+
+            .about-stats {
+                flex-direction: row;
+                justify-content: center;
+                gap: var(--spacing-lg);
+            }
+
+            .stat-item {
+                text-align: center;
+            }
+
+            .connect-content {
+                padding: 0 var(--spacing-sm);
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-logo {
+                width: 100px;
+                height: 100px;
+            }
+
+            .hero-title {
+                font-size: clamp(1.6rem, 8vw, 2rem);
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+                padding: 0 var(--spacing-md);
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 280px;
+                justify-content: center;
+            }
+
+            .about-stats {
+                flex-direction: column;
+                gap: var(--spacing-md);
+            }
+
+            .connect-links {
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+                padding: 0 var(--spacing-md);
+            }
+
+            .connect-link {
+                width: 100%;
+                max-width: 280px;
+                justify-content: center;
+            }
+
+            .service-card {
+                padding: var(--spacing-md) var(--spacing-sm);
+            }
+        }
+
+        /* Reduced motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="card">
-      <h1>Placeholder</h1>
-      <p>This GitHub Pages site is live.<br />Content will be added later.</p>
-    </div>
-  </div>
+    <!-- Background effects -->
+    <div class="bg-gradient-mesh" aria-hidden="true"></div>
+    <div class="noise-overlay" aria-hidden="true"></div>
 
-  <footer>
-    © <span id="year"></span>
-  </footer>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container header-inner">
+            <a href="#" class="logo-link" aria-label="Quasar Studios Home">
+                <img src="assets/QNLogo-NoText.svg" alt="" class="logo-mark" width="48" height="48">
+                <span class="logo-text">Quasar Studios</span>
+            </a>
 
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#connect">Connect</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="container hero-content">
+            <div class="hero-logo">
+                <img src="assets/QNLogo-NoText.svg" alt="Quasar Studios Logo" width="120" height="120">
+            </div>
+            <h1 class="hero-title">
+                We build <span class="highlight">digital</span><br class="desktop-break"><span class="highlight">experiences</span> that matter
+            </h1>
+            <p class="hero-subtitle">
+                From custom web applications to immersive game worlds - Quasar Studios crafts solutions with precision and creativity.
+            </p>
+            <div class="hero-cta">
+                <a href="#connect" class="btn btn-primary">
+                    Get in Touch
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+                <a href="#services" class="btn btn-secondary">What We Do</a>
+            </div>
+        </div>
+        <div class="scroll-indicator" aria-hidden="true"></div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section" id="services">
+        <div class="container">
+            <div class="section-header blur-in">
+                <p class="section-label">What We Do</p>
+                <h2 class="section-title">Expertise Across the Stack</h2>
+            </div>
+
+            <div class="services-grid stagger-children">
+                <article class="service-card">
+                    <div class="service-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="16 18 22 12 16 6"></polyline>
+                            <polyline points="8 6 2 12 8 18"></polyline>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Web Development</h3>
+                    <p class="service-description">
+                        Full-stack web applications built with modern frameworks, optimized for performance and scalability. From landing pages to complex platforms.
+                    </p>
+                </article>
+
+                <article class="service-card">
+                    <div class="service-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                            <polyline points="2 17 12 22 22 17"></polyline>
+                            <polyline points="2 12 12 17 22 12"></polyline>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Game Development</h3>
+                    <p class="service-description">
+                        Creative game design and development, from concept to launch. We build engaging experiences that captivate players and keep them coming back.
+                    </p>
+                </article>
+
+                <article class="service-card">
+                    <div class="service-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                            <line x1="8" y1="21" x2="16" y2="21"></line>
+                            <line x1="12" y1="17" x2="12" y2="21"></line>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Backend & Infrastructure</h3>
+                    <p class="service-description">
+                        Robust server architecture and custom backend solutions. APIs, databases, real-time systems, and multiplayer infrastructure built to scale.
+                    </p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-visual scale-in">
+                    <div class="about-visual-inner">
+                        <div class="orbital-ring"></div>
+                        <div class="orbital-ring"></div>
+                        <div class="orbital-ring"></div>
+                        <div class="about-logo-centered glow-on-scroll">
+                            <img src="assets/QNLogo-NoText.svg" alt="" width="150" height="150">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-text slide-in-right">
+                    <h3 class="blur-in">Crafting the Digital Frontier</h3>
+                    <p>
+                        Quasar Studios is a collective of developers, designers, and digital craftspeople united by a passion for building exceptional software.
+                    </p>
+                    <p>
+                        We take on challenging projects that push boundaries — whether that's architecting a complex web platform or breathing life into virtual worlds.
+                    </p>
+                    <p>
+                        We believe in collaboration, innovation, and delivering solutions that not only meet but exceed expectations. Every project gets our full creative and technical attention.
+                    </p>
+
+                    <div class="about-stats stagger-children">
+                        <div class="stat-item">
+                            <div class="stat-number">15+</div>
+                            <div class="stat-label">Projects Delivered</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">100%</div>
+                            <div class="stat-label">Client Satisfaction</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Connect Section -->
+    <section class="section connect-section" id="connect">
+        <div class="container">
+            <div class="connect-content">
+                <h2 class="connect-title rotate-in">Let's Build<br class="desktop-break">Something Together</h2>
+                <p class="connect-description blur-in">
+                    Interested in our work? Want to collaborate? Reach out and let's talk.
+                </p>
+
+                <div class="connect-links stagger-children">
+                    <a href="https://discord.com/invite/sj6Cx3TNhE" class="connect-link" target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                        </svg>
+                        Join our Discord
+                    </a>
+
+                    <a href="https://github.com/Quasar-Studios" class="connect-link" target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                        View our GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <img src="assets/QNLogo-NoText.svg" alt="" class="footer-logo" width="32" height="32">
+                <span class="footer-name">Quasar Studios</span>
+            </div>
+            <p class="footer-copy">&copy; 2026 Quasar Studios. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Header scroll effect
+        const header = document.getElementById('header');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('open');
+            navLinks.classList.toggle('open');
+            const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+            menuToggle.setAttribute('aria-expanded', !expanded);
+        });
+
+        // Close menu when clicking a link
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('open');
+                navLinks.classList.remove('open');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.animate-on-scroll, .stagger-children, .slide-in-left, .slide-in-right, .scale-in, .blur-in, .rotate-in, .stat-item, .glow-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Parallax effect on scroll
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const scrolled = window.pageYOffset;
+                    
+                    // Parallax for hero logo
+                    const heroLogo = document.querySelector('.hero-logo');
+                    if (heroLogo) {
+                        heroLogo.style.transform = `translateY(${scrolled * 0.15}px)`;
+                    }
+                    
+                    // Parallax for orbital rings
+                    const rings = document.querySelectorAll('.orbital-ring');
+                    rings.forEach((ring, i) => {
+                        const speed = 0.05 * (i + 1);
+                        ring.style.transform = `rotate(${scrolled * speed}deg)`;
+                    });
+                    
+                    // Subtle scale effect on service cards based on scroll
+                    const cards = document.querySelectorAll('.service-card');
+                    cards.forEach(card => {
+                        const rect = card.getBoundingClientRect();
+                        const centerY = window.innerHeight / 2;
+                        const cardCenter = rect.top + rect.height / 2;
+                        const distance = Math.abs(centerY - cardCenter);
+                        const maxDistance = window.innerHeight / 2;
+                        const scale = 1 - (distance / maxDistance) * 0.05;
+                        card.style.transform = `scale(${Math.max(0.95, Math.min(1, scale))})`;
+                    });
+                    
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
