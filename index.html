@@ -173,11 +173,20 @@
             left: 0;
             width: 100%;
             z-index: 100;
-            padding: var(--spacing-sm) 0;
+            padding: 0; /* keep disclaimer flush to top */
             transition: background-color 0.4s var(--transition-smooth), 
                         backdrop-filter 0.4s var(--transition-smooth);
         }
 
+        .disclaimer-bar {
+            background: #ffeb3b;
+            color: #111;
+            text-align: center;
+            padding: 0.45rem 0;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
         .header.scrolled {
             background-color: rgba(23, 27, 51, 0.85);
             -webkit-backdrop-filter: blur(20px);
@@ -189,6 +198,7 @@
             justify-content: space-between;
             align-items: center;
             width: 100%;
+            padding: var(--spacing-sm) 0; /* restore spacing for header content */
         }
 
         .logo-link {
@@ -1442,12 +1452,13 @@
 
     <!-- Header -->
     <header class="header" id="header">
+        <div class="disclaimer-bar" role="note">Disclaimer: Quasar Studios is not a business.</div>
         <div class="container header-inner">
             <a href="#" class="logo-link" aria-label="Quasar Studios Home">
                 <img src="assets/QNLogo-NoText.svg" alt="" class="logo-mark" width="48" height="48">
                 <span class="logo-text">Quasar Studios</span>
             </a>
-
+            
             <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">
                 <span></span>
                 <span></span>
@@ -1475,7 +1486,7 @@
                 We build <span class="highlight">digital</span><br><span class="highlight">experiences</span> that matter
             </h1>
             <p class="hero-subtitle">
-                From custom web applications to immersive game worlds - Quasar Studios crafts solutions with precision and creativity.
+                A collective creating web experiences, games, and creative projects with curiosity and care.
             </p>
             <div class="hero-cta">
                 <a href="#connect" class="btn btn-primary">
@@ -1651,10 +1662,10 @@
                 <div class="about-text slide-in-right">
                     <h3 class="blur-in">Crafting the Digital Frontier</h3>
                     <p>
-                        Quasar Studios is a collective of developers, designers, and digital craftspeople united by a passion for building exceptional software.
+                        Quasar Studios is a collective of developers, designers, and digital craftspeople united by a passion for creative projects and community collaboration.
                     </p>
                     <p>
-                        We take on challenging projects that push boundaries — whether that's architecting a complex web platform or breathing life into virtual worlds. Every project gets our full creative and technical attention.
+                        We collaborate on experiments and personal projects that push boundaries — from experimental web platforms to virtual worlds. Our focus is creativity, learning, and sharing work with the community.
                     </p>
 
                     <div class="about-stats stagger-children">
@@ -1662,10 +1673,7 @@
                             <div class="stat-number">15+</div>
                             <div class="stat-label">Projects Delivered</div>
                         </div>
-                        <div class="stat-item">
-                            <div class="stat-number">100%</div>
-                            <div class="stat-label">Client Satisfaction</div>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -1707,7 +1715,7 @@
                 <img src="assets/QNLogo-NoText.svg" alt="" class="footer-logo" width="32" height="32">
                 <span class="footer-name">Quasar Studios</span>
             </div>
-            <p class="footer-copy">&copy; 2026 Quasar Studios. All rights reserved.</p>
+            <p class="footer-copy">© 2026 Quasar Studios. Not a business.</p>
         </div>
     </footer>
 
